@@ -6,10 +6,13 @@ import { View, Text } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
+//Import components, actions/reducers, and styles
+import reducers from './reducers';
+
 class App extends Component {
 	render() {
 		return(
-			<Provider store={createStore(()=>{})}>
+			<Provider store={createStore(reducers)}>
 				<View>
 					<Text>
 						Hello!
