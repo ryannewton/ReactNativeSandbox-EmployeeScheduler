@@ -6,8 +6,31 @@ import { connect } from 'react-redux';
 
 //Import components, actions/reducers, and styles
 import { Card, CardSection, Input, Button } from './common';
+import {
+	emailChanged,
+	passwordChanged,
+	passwordConfirmChange,
+	signupUser
+} from '../actions';
 
 class SignupForm extends Component {
+	onEmailChange(text) {
+		this.props.emailChanged(text);
+	}
+
+	onPasswordChange(text) {
+		this.props.passwordChanged(text);
+	}
+
+	onPasswordConfirmChange(text) {
+		this.props.passwordConfirmChange(text);
+	}
+
+	onButtonPress() {
+		const { email, password } = this.props;
+		this.props.signupUser({ email, password });
+	}
+
 	render() {
 		return (
 			<Card>
@@ -16,6 +39,7 @@ class SignupForm extends Component {
 						label="Email"
 						placeholder="joe@gmail.com"
 						value={this.props.email}
+						onChangeText={this.onEmailChange.bind(this)}
 					/>
 				</CardSection>
 
@@ -25,6 +49,7 @@ class SignupForm extends Component {
 						label="Password"
 						placeholder="password"
 						value={this.props.password}
+						onChangeText={this.onPasswordChange.bind(this)}
 					/>
 				</CardSection>
 
@@ -34,11 +59,14 @@ class SignupForm extends Component {
 						label="Confirm Password"
 						placeholder="password"
 						value={this.props.passwordConfirm}
+						onChangeText={this.onPasswordConfirmChange.bind(this)}
 					/>
 				</CardSection>
 
 				<CardSection>
-					<Button>
+					<Button
+						onPress={this.onButtonPress.bind(this)}
+					>
 						Sign Up
 					</Button>
 				</CardSection>
@@ -56,4 +84,9 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(SignupForm);
+export default connect(mapStateToProps, {
+	emailChanged,
+	passwordChanged,
+	passwordConfirmChange,
+	signupUser
+})(SignupForm);
