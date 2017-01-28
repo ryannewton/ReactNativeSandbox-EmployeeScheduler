@@ -2,6 +2,7 @@
 
 // Import Libraries
 import React, { Component } from 'react';
+import { Text } from 'react-native';
 import { connect } from 'react-redux';
 
 //Import components, actions/reducers, and styles
@@ -63,6 +64,10 @@ class SignupForm extends Component {
 					/>
 				</CardSection>
 
+				<Text style={styles.errorTextStyle}>
+					{this.props.error}
+				</Text>
+
 				<CardSection>
 					<Button
 						onPress={this.onButtonPress.bind(this)}
@@ -75,12 +80,21 @@ class SignupForm extends Component {
 	}
 }
 
+const styles = {
+	errorTextStyle: {
+		fontSize: 20,
+		alignSelf: 'center',
+		color: 'red'
+	}
+};
+
 const mapStateToProps = (state) => {
-	const { email, password, passwordConfirm } = state.auth;
+	const { email, password, passwordConfirm, error } = state.auth;
 	return {
 		email,
 		password,
-		passwordConfirm
+		passwordConfirm,
+		error
 	};
 };
 
