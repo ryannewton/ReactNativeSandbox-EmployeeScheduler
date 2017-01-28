@@ -35,17 +35,20 @@ export const passwordConfirmChange = (confirmPassword) => {
 export const loginUser = ({ email, password }) => {
 	return (dispatch) => {
 		firebase.auth().signInWithEmailAndPassword(email, password)
-			.then((user) => {
-				dispatch({ type: LOGIN_USER_SUCCESS, payload: user });
-			});
+			.then((user) => loginUserSuccess(dispatch, user));
 	};
+};
+
+const loginUserSuccess = (dispatch, user) => {
+	dispatch({
+		type: LOGIN_USER_SUCCESS,
+		payload: user
+	});
 };
 
 export const signupUser = ({ email, password }) => {
 	return (dispatch) => {
 		firebase.auth().createUserWithEmailAndPassword(email, password)
-			.then((user) => {
-				dispatch({ type: SIGNUP_USER_SUCCESS, payload: user });
-			});
+			.then((user) => loginUserSuccess(dispatch, user));
 	};
 };
