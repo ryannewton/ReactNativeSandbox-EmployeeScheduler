@@ -11,7 +11,8 @@ import {
 	emailChanged,
 	passwordChanged,
 	passwordConfirmChange,
-	signupUser
+	signupUser,
+	signupUserFail
 } from '../actions';
 
 class SignupForm extends Component {
@@ -28,8 +29,13 @@ class SignupForm extends Component {
 	}
 
 	onButtonPress() {
-		const { email, password } = this.props;
-		this.props.signupUser({ email, password });
+		const { email, password, passwordConfirm } = this.props;
+		if (password !== passwordConfirm) {
+			const errorMessage = 'Passwords must match';
+			this.props.signupUserFail(errorMessage);
+		} else {
+			this.props.signupUser({ email, password });
+		}
 	}
 
 	render() {
@@ -102,5 +108,6 @@ export default connect(mapStateToProps, {
 	emailChanged,
 	passwordChanged,
 	passwordConfirmChange,
-	signupUser
+	signupUser,
+	signupUserFail
 })(SignupForm);
