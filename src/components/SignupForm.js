@@ -6,7 +6,7 @@ import { Text } from 'react-native';
 import { connect } from 'react-redux';
 
 //Import components, actions/reducers, and styles
-import { Card, CardSection, Input, Button } from './common';
+import { Card, CardSection, Input, Button, Spinner } from './common';
 import {
 	emailChanged,
 	passwordChanged,
@@ -36,6 +36,18 @@ class SignupForm extends Component {
 		} else {
 			this.props.signupUser({ email, password });
 		}
+	}
+
+	renderButton() {
+		if (this.props.loading) {
+			return <Spinner size="large" />;
+		}
+
+		return (
+			<Button onPress={this.onButtonPress.bind(this)}>
+				Sign Up
+			</Button>
+		);
 	}
 
 	render() {
@@ -75,11 +87,7 @@ class SignupForm extends Component {
 				</Text>
 
 				<CardSection>
-					<Button
-						onPress={this.onButtonPress.bind(this)}
-					>
-						Sign Up
-					</Button>
+					{this.renderButton()}
 				</CardSection>
 			</Card>
 		);
@@ -95,12 +103,13 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-	const { email, password, passwordConfirm, error } = state.auth;
+	const { email, password, passwordConfirm, error, loading } = state.auth;
 	return {
 		email,
 		password,
 		passwordConfirm,
-		error
+		error,
+		loading
 	};
 };
 
