@@ -9,7 +9,8 @@ import {
 	PASSWORD_CONFIRM_CHANGED,
 	LOGIN_USER_SUCCESS,
 	LOGIN_USER_FAIL,
-	SIGNUP_USER_SUCCESS
+	SIGNUP_USER_SUCCESS,
+	SIGNUP_USER_FAIL
 } from './types';
 
 export const emailChanged = (text) => {
@@ -55,7 +56,8 @@ const loginUserFail = (dispatch) => {
 export const signupUser = ({ email, password }) => {
 	return (dispatch) => {
 		firebase.auth().createUserWithEmailAndPassword(email, password)
-			.then((user) => signupUserSuccess(dispatch, user));
+			.then((user) => signupUserSuccess(dispatch, user))
+			.catch(() => signupUserFail(dispatch));
 	};
 };
 
@@ -64,4 +66,8 @@ const signupUserSuccess = (dispatch, user) => {
 		type: SIGNUP_USER_SUCCESS,
 		payload: user
 	});
+};
+
+const signupUserFail = (dispatch) => {
+	dispatch({ type: SIGNUP_USER_FAIL });
 };
