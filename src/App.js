@@ -2,9 +2,9 @@
 
 // Import Libraries
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import firebase from 'firebase';
 
 //Import components, actions/reducers, and styles
@@ -18,8 +18,10 @@ class App extends Component {
 	}
 
 	render() {
-		return(
-			<Provider store={createStore(reducers)}>
+		const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
+		return (
+			<Provider store={store}>
 				<LoginForm />
 			</Provider>
 		);
