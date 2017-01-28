@@ -2,6 +2,7 @@
 
 // Import libraries
 import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 
 import {
 	EMAIL_CHANGED,
@@ -41,7 +42,10 @@ export const loginUser = ({ email, password }) => {
 		dispatch({ type: LOGIN_USER });
 
 		firebase.auth().signInWithEmailAndPassword(email, password)
-			.then((user) => dispatch(loginUserSuccess(user)))
+			.then((user) => {
+				dispatch(loginUserSuccess(user));
+				Actions.main();
+			})
 			.catch(() => dispatch(loginUserFail()));
 	};
 };
@@ -62,7 +66,10 @@ export const signupUser = ({ email, password }) => {
 		dispatch({ type: SIGNUP_USER });
 
 		firebase.auth().createUserWithEmailAndPassword(email, password)
-			.then((user) => dispatch(signupUserSuccess(user)))
+			.then((user) => {
+				dispatch(signupUserSuccess(user));
+				Actions.main();
+			})
 			.catch(() => dispatch(signupUserFail('Email address is already in use')));
 	};
 };
