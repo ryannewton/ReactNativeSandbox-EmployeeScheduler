@@ -6,6 +6,7 @@ import firebase from 'firebase';
 import {
 	EMAIL_CHANGED,
 	PASSWORD_CHANGED,
+	PASSWORD_CONFIRM_CHANGED,
 	LOGIN_USER_SUCCESS
 } from './types';
 
@@ -20,6 +21,13 @@ export const passwordChanged = (password) => {
 	return {
 		type: PASSWORD_CHANGED,
 		payload: password
+	};
+};
+
+export const passwordConfirmChange = (confirmPassword) => {
+	return {
+		type: PASSWORD_CONFIRM_CHANGED,
+		payload: confirmPassword
 	};
 };
 
