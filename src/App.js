@@ -8,6 +8,7 @@ import { createStore } from 'redux';
 import firebase from 'firebase';
 
 //Import components, actions/reducers, and styles
+import LoginForm from './components/LoginForm';
 import reducers from './reducers';
 import firebaseConfig from '../api_keys';
 
@@ -19,11 +20,7 @@ class App extends Component {
 	render() {
 		return(
 			<Provider store={createStore(reducers)}>
-				<View>
-					<Text>
-						Hello!
-					</Text>
-				</View>
+				<LoginForm />
 			</Provider>
 		);
 	}
