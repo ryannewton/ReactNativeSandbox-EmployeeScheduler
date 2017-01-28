@@ -8,7 +8,7 @@ import ReduxThunk from 'redux-thunk';
 import firebase from 'firebase';
 
 //Import components, actions/reducers, and styles
-import LoginForm from './components/LoginForm';
+import Router from './Router';
 import reducers from './reducers';
 import firebaseConfig from '../api_keys';
 
@@ -22,7 +22,7 @@ class App extends Component {
 
 		return (
 			<Provider store={store}>
-				<LoginForm />
+				<Router />
 			</Provider>
 		);
 	}
