@@ -37,37 +37,40 @@ export const passwordConfirmChange = (confirmPassword) => {
 export const loginUser = ({ email, password }) => {
 	return (dispatch) => {
 		firebase.auth().signInWithEmailAndPassword(email, password)
-			.then((user) => loginUserSuccess(dispatch, user))
-			.catch(() => loginUserFail(dispatch));
+			.then((user) => dispatch(loginUserSuccess(user)))
+			.catch(() => dispatch(loginUserFail()));
 	};
 };
 
-const loginUserSuccess = (dispatch, user) => {
-	dispatch({
+const loginUserSuccess = (user) => {
+	return {
 		type: LOGIN_USER_SUCCESS,
 		payload: user
-	});
+	};
 };
 
-const loginUserFail = (dispatch) => {
-	dispatch({ type: LOGIN_USER_FAIL });
+const loginUserFail = () => {
+	return { type: LOGIN_USER_FAIL };
 };
 
 export const signupUser = ({ email, password }) => {
 	return (dispatch) => {
 		firebase.auth().createUserWithEmailAndPassword(email, password)
-			.then((user) => signupUserSuccess(dispatch, user))
-			.catch(() => signupUserFail(dispatch));
+			.then((user) => dispatch(signupUserSuccess(user)))
+			.catch(() => dispatch(signupUserFail('Email address is already in use')));
 	};
 };
 
-const signupUserSuccess = (dispatch, user) => {
-	dispatch({
+const signupUserSuccess = (user) => {
+	return {
 		type: SIGNUP_USER_SUCCESS,
 		payload: user
-	});
+	};
 };
 
-const signupUserFail = (dispatch) => {
-	dispatch({ type: SIGNUP_USER_FAIL });
+export const signupUserFail = (err) => {
+	return {
+		type: SIGNUP_USER_FAIL,
+		payload: err
+	};
 };

@@ -33,7 +33,7 @@ export default (state = INITIAL_STATE, action) => {
 		case SIGNUP_USER_SUCCESS:
 			return { ...state, user: action.payload, error: '' };
 		case SIGNUP_USER_FAIL:
-			return { ...state, error: 'Signup failed.', password: '', passwordConfirm: '' };
+			return { ...state, error: action.payload, password: '', passwordConfirm: '' };
 		default:
 			return state;
 	}
