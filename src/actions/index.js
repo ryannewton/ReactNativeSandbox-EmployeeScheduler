@@ -7,8 +7,10 @@ import {
 	EMAIL_CHANGED,
 	PASSWORD_CHANGED,
 	PASSWORD_CONFIRM_CHANGED,
+	LOGIN_USER,
 	LOGIN_USER_SUCCESS,
 	LOGIN_USER_FAIL,
+	SIGNUP_USER,
 	SIGNUP_USER_SUCCESS,
 	SIGNUP_USER_FAIL
 } from './types';
@@ -36,6 +38,8 @@ export const passwordConfirmChange = (confirmPassword) => {
 
 export const loginUser = ({ email, password }) => {
 	return (dispatch) => {
+		dispatch({ type: LOGIN_USER });
+
 		firebase.auth().signInWithEmailAndPassword(email, password)
 			.then((user) => dispatch(loginUserSuccess(user)))
 			.catch(() => dispatch(loginUserFail()));
@@ -55,6 +59,8 @@ const loginUserFail = () => {
 
 export const signupUser = ({ email, password }) => {
 	return (dispatch) => {
+		dispatch({ type: SIGNUP_USER });
+
 		firebase.auth().createUserWithEmailAndPassword(email, password)
 			.then((user) => dispatch(signupUserSuccess(user)))
 			.catch(() => dispatch(signupUserFail('Email address is already in use')));
