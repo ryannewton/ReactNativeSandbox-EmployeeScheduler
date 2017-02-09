@@ -2,6 +2,7 @@
 
 // Import Libraries
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 // Import components
 import EmployeeForm from './EmployeeForm';
@@ -10,9 +11,16 @@ import { Card, CardSection, Button } from './common';
 class EmployeeEdit extends Component {
 	render() {
 		return (
-			<Card>Placeholder</Card>
+			<Card>
+				<EmployeeForm />
+				<CardSection>
+					<Button>
+						Save Changes
+					</Button>
+				</CardSection>
+			</Card>
 		);
 	}
 }
 
-export default EmployeeEdit;
+export default connect()(EmployeeEdit);
