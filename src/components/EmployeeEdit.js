@@ -9,7 +9,7 @@ import Communications from 'react-native-communications';
 // Import components
 import EmployeeForm from './EmployeeForm';
 import { Card, CardSection, Button, Confirm } from './common';
-import { employeeUpdate, employeeSave } from '../actions';
+import { employeeUpdate, employeeSave, employeeDelete } from '../actions';
 
 class EmployeeEdit extends Component {
 	state = { showModal: false };
@@ -32,11 +32,12 @@ class EmployeeEdit extends Component {
 	}
 
 	onAccept() {
-		// To do: add function to delete employee
+		const { uid } = this.props.employee;
+		this.props.employeeDelete({ uid });
 	}
 
 	onDecline() {
-		// To do: add function to remove Confirm modal
+		this.setState({ showModal: false });
 	}
 
 	render() {
@@ -82,5 +83,6 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
 	employeeUpdate,
-	employeeSave
+	employeeSave,
+	employeeDelete
 })(EmployeeEdit);
