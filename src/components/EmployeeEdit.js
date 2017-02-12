@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 // Import components
 import EmployeeForm from './EmployeeForm';
 import { Card, CardSection, Button } from './common';
-import { employeeUpdate } from '../actions';
+import { employeeUpdate, employeeSave } from '../actions';
 
 class EmployeeEdit extends Component {
 	componentWillMount() {
@@ -19,7 +19,7 @@ class EmployeeEdit extends Component {
 
 	onButtonPress() {
 		const { name, phone, shift } = this.props;
-		// To do: Update firebase DB with new data
+		this.props.employeeSave({ name, phone, shift, uid: this.props.employee.uid });
 	}
 
 	render() {
@@ -42,4 +42,7 @@ const mapStateToProps = (state) => {
 	return { name, phone, shift };
 };
 
-export default connect(mapStateToProps, { employeeUpdate })(EmployeeEdit);
+export default connect(mapStateToProps, {
+	employeeUpdate,
+	employeeSave
+})(EmployeeEdit);
